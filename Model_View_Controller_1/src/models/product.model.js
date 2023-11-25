@@ -4,7 +4,7 @@ export default class ProductModel {
     this.name = _name;
     this.desc = _desc;
     this.price = _price;
-    this._imgUrl = _imgUrl;
+    this.imgUrl = _imgUrl;
   }
   static get() {
     return products;
