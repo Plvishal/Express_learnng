@@ -4,16 +4,18 @@ const express = require('express');
 const server = express();
 
 // Handle default request
-server.get(
-  '/',
-  (req, res, next) => {
-    console.log('first');
-    next();
-  },
-  (req, res) => {
-    res.send('hello');
-  }
-);
+// Array of middleware
+function firstMidlleware(req, res, next) {
+  console.log('First middleware');
+  next();
+}
+function secondMiddlware(req, res, next) {
+  console.log('Second Middleware');
+  next();
+}
+server.get('/', [firstMidlleware, secondMiddlware], (req, res) => {
+  res.send('hello');
+});
 
 // listen on specified port
 // Port
