@@ -4,9 +4,16 @@ const express = require('express');
 const server = express();
 
 // Handle default request
-server.get('/', (req, res) => {
-  res.send('Welcome to express server');
-});
+server.get(
+  '/',
+  (req, res, next) => {
+    console.log('first');
+    next();
+  },
+  (req, res) => {
+    res.send('hello');
+  }
+);
 
 // listen on specified port
 // Port
