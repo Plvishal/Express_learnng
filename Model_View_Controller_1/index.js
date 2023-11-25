@@ -1,10 +1,15 @@
-const express = require('express');
+// const express = require('express');
+import express from 'express';
+import ProductController from './src/controllers/product.controller.js';
 
 const server = express();
+// create an instance or PrductController
+const productController = new ProductController();
 
-server.get('/', (req, res) => {
-  return res.send('Welcome to inventory App');
-});
+server.get('/', productController.getProducts);
+//
+
+server.use(express.static('src/views'));
 
 const PORT = 3000;
 server.listen(PORT, () => {
