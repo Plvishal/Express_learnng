@@ -23,6 +23,18 @@ server.use(globalLevel);
 server.get('/', [firstMidlleware, secondMiddlware], (req, res) => {
   res.send('hello');
 });
+// post request
+server.post('/', (req, res) => {
+  res.send('Post Request Mehtod is working');
+});
+// Put request
+server.put('/', (req, res) => {
+  res.send('Put Request Mehtod is working');
+});
+//   Delete request
+server.delete('/', (req, res) => {
+  res.send('Delete Request Mehtod is working');
+});
 
 // listen on specified port
 // Port
