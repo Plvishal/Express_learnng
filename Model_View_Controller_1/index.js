@@ -5,6 +5,8 @@ import path from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
 
 const server = express();
+// parse form data
+server.use(express.urlencoded({ extended: true }));
 // setup view engine
 server.set('view engine', 'ejs');
 server.set('views', path.join(path.resolve(), 'src', 'views'));

@@ -16,9 +16,11 @@ export default class ProductController {
     return res.render('new-product.ejs');
   }
   // for
-  addNewProduct() {
+  addNewProduct(req, res) {
     // access data from form
-    console.log(req.body);
-    res.render('products.ejs', { products });
+    // console.log(req.body);
+    ProductModel.add(req.body);
+    let products = ProductModel.get();
+    return res.render('products.ejs', { products });
   }
 }
