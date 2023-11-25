@@ -9,6 +9,6 @@ export default class ProductController {
     // return res.sendFile(
     //   path.join(path.resolve(), 'src', 'views', 'products.html')
     // );
-    console.log(path.resolve());
+    // console.log(path.resolve());
   }
 }
