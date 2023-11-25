@@ -11,4 +11,14 @@ export default class ProductController {
     // );
     // console.log(path.resolve());
   }
+  // For new product added
+  getAddForm(req, res) {
+    return res.render('new-product.ejs');
+  }
+  // for
+  addNewProduct() {
+    // access data from form
+    console.log(req.body);
+    res.render('products.ejs', { products });
+  }
 }
