@@ -3,6 +3,7 @@ import express from 'express';
 import ProductController from './src/controllers/product.controller.js';
 import path from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
+import { vailidateRequest } from './src/middleware/vailidation.middleware.js';
 
 const server = express();
 // parse form data
@@ -18,7 +19,7 @@ const productController = new ProductController();
 server.get('/', productController.getProducts);
 //
 server.get('/new', productController.getAddForm);
-server.post('/', productController.addNewProduct);
+server.post('/', vailidateRequest, productController.addNewProduct);
 
 server.use(express.static('src/views'));
 
