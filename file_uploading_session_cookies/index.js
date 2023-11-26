@@ -19,8 +19,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(path.resolve(), 'src', 'views'));
+// Login & Register
 app.get('/register', userController.getRegister);
 app.get('/login', userController.getLogin);
+app.post('/login', userController.postLogin);
+app.post('/register', userController.postRegister);
 
 app.get('/', productsController.getProducts);
 app.get('/add-product', productsController.getAddProduct);
