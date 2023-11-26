@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(path.resolve(), 'src', 'views'));
 app.get('/register', userController.getRegister);
+app.get('/login', userController.getLogin);
 
 app.get('/', productsController.getProducts);
 app.get('/add-product', productsController.getAddProduct);
