@@ -12,26 +12,22 @@ export default class ProductModel {
   }
 
   static update(productObj) {
-    const index = products.findIndex(
-      (p) => p.id == productObj.id
-    );
+    const index = products.findIndex((p) => p.id == productObj.id);
     products[index] = productObj;
   }
 
   static delete(id) {
-    const index = products.findIndex(
-      (p) => p.id == id
-    );
+    const index = products.findIndex((p) => p.id == id);
     products.splice(index, 1);
   }
 
-  static add(productObj) {
+  static add(name, desc, price, imageUrl) {
     let newProduct = new ProductModel(
       products.length + 1,
-      productObj.name,
-      productObj.desc,
-      productObj.price,
-      productObj.imageUrl
+      name,
+      desc,
+      price,
+      imageUrl
     );
     products.push(newProduct);
   }
