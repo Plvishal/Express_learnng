@@ -1,33 +1,32 @@
-// const express = require('express');
 import express from 'express';
-import ProductController from './src/controllers/product.controller.js';
+import ProductsController from './src/controllers/product.controller.js';
+import ejsLayouts from 'express-ejs-layouts';
 import path from 'path';
-import expressEjsLayouts from 'express-ejs-layouts';
-import { vailidateRequest } from './src/middleware/vailidation.middleware.js';
+import validationMiddleware from './src/middlewares/validation.middleware.js';
 
-const server = express();
-// parse form data
-server.use(express.urlencoded({ extended: true }));
-// setup view engine
-server.set('view engine', 'ejs');
-server.set('views', path.join(path.resolve(), 'src', 'views'));
-// Setup for Express Ejs Layouts
-server.use(expressEjsLayouts);
-// create an instance or PrductController
-const productController = new ProductController();
+const app = express();
 
-server.get('/', productController.getProducts);
-//
-server.get('/new', productController.getAddForm);
-server.get('/update/:id', productController.getUpdateProductView);
-server.post('/', vailidateRequest, productController.addNewProduct);
-server.post('/update', productController.postUpdateProduct);
+app.use(express.static('public'));
 
-server.use(express.static('src/views'));
+const productsController = new ProductsController();
 
-const PORT = 3000;
-server.listen(PORT, () => {
-  console.log(`Server running on port :${PORT}`);
+app.use(ejsLayouts);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.set('views', path.join(path.resolve(), 'src', 'views'));
+
+app.get('/', productsController.getProducts);
+app.get('/add-product', productsController.getAddProduct);
+
+app.get('/update-product/:id', productsController.getUpdateProductView);
+
+app.post('/delete-product/:id', productsController.deleteProduct);
+
+app.post('/', validationMiddleware, productsController.postAddProduct);
+
+app.post('/update-product', productsController.postUpdateProduct);
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });
-
-// Second Phase of Model View Controller (MVC)Started  from here
