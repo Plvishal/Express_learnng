@@ -26,6 +26,16 @@ export default class UserController {
     // Set session
     req.session.userEmail = email;
     var products = ProductModel.getAll();
-    res.render('index', { products });
+    res.render('index', { products, userEmail: req.session.userEmail });
+  }
+  logout(req, res) {
+    // on logout ,destroy the session
+    req.session.destroy((err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect('/login');
+      }
+    });
   }
 }
