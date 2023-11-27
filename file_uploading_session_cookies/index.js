@@ -13,41 +13,60 @@ import { setLastVisit } from './src/middlewares/lastVisit.middleware.js';
 const app = express();
 
 app.use(express.static('public'));
-
-const productsController = new ProductsController();
-// create Instances
-const userController = new UserController();
-
-app.use(ejsLayouts);
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.set('view engine', 'ejs');
-app.set('views', path.join(path.resolve(), 'src', 'views'));
-// Configure Cookies
 app.use(cookieParser());
-app.use(setLastVisit);
-// Configure the session
 app.use(
   session({
     secret: 'SecretKey',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true },
+    cookie: { secure: false },
   })
 );
-// Login & Register
-app.get('/register', userController.getRegister);
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
-app.get('/logout', userController.logout);
-app.post('/register', userController.postRegister);
 
-app.get('/', auth, productsController.getProducts);
-app.get('/add-product', auth, productsController.getAddProduct);
+const productsController =
+  new ProductsController();
+const usersController = new UserController();
 
-app.get('/update-product/:id', auth, productsController.getUpdateProductView);
+app.use(ejsLayouts);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.set(
+  'views',
+  path.join(path.resolve(), 'src', 'views')
+);
 
-app.post('/delete-product/:id', auth, productsController.deleteProduct);
+app.get('/register', usersController.getRegister);
+app.get('/login', usersController.getLogin);
+app.post('/login', usersController.postLogin);
+app.get('/logout', usersController.logout);
+app.post(
+  '/register',
+  usersController.postRegister
+);
+app.get(
+  '/',
+  setLastVisit,
+  auth,
+  productsController.getProducts
+);
+app.get(
+  '/add-product',
+  auth,
+  productsController.getAddProduct
+);
+
+app.get(
+  '/update-product/:id',
+  auth,
+  productsController.getUpdateProductView
+);
+
+app.post(
+  '/delete-product/:id',
+  auth,
+  productsController.deleteProduct
+);
 
 app.post(
   '/',
@@ -57,7 +76,11 @@ app.post(
   productsController.postAddProduct
 );
 
-app.post('/update-product', auth, productsController.postUpdateProduct);
+app.post(
+  '/update-product',
+  auth,
+  productsController.postUpdateProduct
+);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

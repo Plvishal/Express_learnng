@@ -1,8 +1,11 @@
-<%if(locals.lastVisit){%>
-    <div class="alert alert-primary mt-4" role="alert">Your Last Visit Was on:<%= locals.lastVisit%></div>
-<%}%>
 
-<h1 class="mt-5 mb-4">Products</h1>
+<% if(locals.lastVisit){ %>
+<div class="alert alert-primary" role="alert">
+    Your Last Visit was on : <%= locals.lastVisit %>
+</div>
+<% } %>
+
+<h1 class="mt-5 mb-4 header">Products</h1>
 <table class="table table-dark">
     <thead>
         <tr>
