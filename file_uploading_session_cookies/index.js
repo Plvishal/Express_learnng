@@ -7,6 +7,8 @@ import validationMiddleware from './src/middlewares/validation.middleware.js';
 import { uploadFile } from './src/middlewares/file-upload.middleware.js';
 import session from 'express-session';
 import { auth } from './src/middlewares/auth.middleware.js';
+import cookieParser from 'cookie-parser';
+import { setLastVisit } from './src/middlewares/lastVisit.middleware.js';
 
 const app = express();
 
@@ -21,6 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(path.resolve(), 'src', 'views'));
+// Configure Cookies
+app.use(cookieParser());
+app.use(setLastVisit);
 // Configure the session
 app.use(
   session({
