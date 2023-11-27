@@ -23,6 +23,8 @@ export default class UserController {
         errorMessage: 'Invailid credentials',
       });
     }
+    // Set session
+    req.session.userEmail = email;
     var products = ProductModel.getAll();
     res.render('index', { products });
   }
