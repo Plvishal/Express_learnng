@@ -23,7 +23,7 @@ var users = [
     id: 1,
     name: 'vishal',
     email: 'vishal@gmail.com',
-    password: 'password',
+    password: '123',
     type: 'seller',
   },
 ];
